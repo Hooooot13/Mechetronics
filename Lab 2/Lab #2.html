@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 id="firstHeading">Lab #2: Basic Output (digital)</h1>
+<div id="bodyContent">
+<div id="contentSub"></div>
+<div dir="ltr">
+<table id="toc">
+<tbody>
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+&nbsp;[<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_Output#" id="togglelink">hide</a>]&nbsp;</div>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_Output#Description">1&nbsp;Description</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_Output#Assignment">2&nbsp;Assignment</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_Output#Deliverables">3&nbsp;Deliverables</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_Output#ATmega2560_Pin_Diagram">4&nbsp;ATmega2560 Pin Diagram</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_Output#Wiring_the_7-segment_Display">5&nbsp;Wiring the 7-segment Display</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="Description">Description</span></h2>
+<p>The purpose of this lab is a first introduction to the I/O capabilities on an MCU using the ATmega2560. For this lab we will utilize PORT B as a the primary digital output in order to run one or more 7-segment display as a countdown timer for a recipe. Text information can be displayed on the LCD screen ( or serial monitor for one more week until you get your LCD working). You may write any recipe you would like.&nbsp; The example recipe is for a hardboiled egg: Boil for 10 minutes, rinse in cold water for 10 seconds.</p>
+<h2><span id="Assignment">Assignment</span></h2>
+<p>Your program should do the following:</p>
+<ol>
+<li>Print an opening message of your product.</li>
+<li>Tell the user what recipe is to follow.</li>
+<li>Provide the recipe steps in order, timed.</li>
+<li>Provide a countdown timer for any timed events in the recipe.</li>
+<li>Display all instructions on the LCD screen</li>
+<li>Display countdown time on one or more 7-segment displays (novice - 1 digit, intermediate - 2 digit, multiple ports, advanced - 2 digits minimized number of input pins)</li>
+<li>Test your product on someone outside the class, record their use of your product.</li>
+</ol>
+<p><br />These represent the minimum requirements. Additional features using general purpose output may be included in your lab design.</p>
+<h2><span id="Deliverables">Deliverables</span></h2>
+<p>Complete the&nbsp;<strong>short</strong>&nbsp;lab report found in lab templates. This is due one week after the lab has been assigned.</p>
+<h2><span id="ATmega2560_Pin_Diagram">ATmega2560 Pin Diagram</span></h2>
+<p>The pin diagram of the AtMega2560 should be utilized to properly wire the 7-segment display. It is available at&nbsp;<a rel="nofollow" href="https://www.arduino.cc/en/Hacking/PinMapping2560">https://www.arduino.cc/en/Hacking/PinMapping2560</a></p>
+<h2><span id="Wiring_the_7-segment_Display">LCD display:&nbsp;</span></h2>
+<p>Here is a tutorial on the procedure:</p>
+<p><a href="https://www.allaboutcircuits.com/projects/interface-an-lcd-with-an-arduino/">https://www.allaboutcircuits.com/projects/interface-an-lcd-with-an-arduino/</a></p>
+<p><span style="font-family: 'Calibri',sans-serif; color: black;">Here is sample code for driving the LCD display (Courtesy of Othon Oliveira Lima). Note that Lima's pinout might be slightly different than that shown in the previous tutorial.</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">// include the library code:</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">#include &lt;LiquidCrystal.h&gt;</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">// initialize the library with the numbers of the interface pins</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">LiquidCrystal lcd(8,9,10,11,12,13);</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">void setup() {</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">// set up the LCD&rsquo;s number of columns and rows:</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">lcd.begin(16,2);</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">// Print a message to the LCD.</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">lcd.print("Hello World!");</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">}</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">void loop() {</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">// set the cursor to column 0, line 1</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">// (note: line 1 is the second row, since counting begins with 0):</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">lcd.setCursor(0, 1);</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">// print the number of seconds since reset:</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">lcd.print(millis()/1000);</span></p>
+<p style="margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;"><span style="font-family: 'Calibri',sans-serif; color: black;">}</span></p>
+<h2><span id="Wiring_the_7-segment_Display">Wiring the 7-segment Display</span></h2>
+<p>The 7-segment display must be set up using a bread board and connecting wires between the Arduino board and the appropriate pin positions on the bread board. The following picture shows a zoomed in view of the 7-segment display used on the Dragonboard and can be used as a reference to manually wire your display.</p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:7segzoom.png"><img alt="7segzoom.png" src="http://matlab-nsfwiki.csc.tntech.edu/images/d/d1/7segzoom.png" width="166" height="260" style="border-width: initial; border-image-width: initial;" /></a></p>
+<p>The wired 7-segment display will look like the following:</p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Bb7seg.jpeg"><img alt="Bb7seg.jpeg" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/a/a2/Bb7seg.jpeg/600px-Bb7seg.jpeg" width="600" height="800" style="border-width: initial; border-image-width: initial;" /></a></p>
+<p>NOTE: A resistor is placed between the common cathode and ground to protect the 7-segment display from receiving too much current. The calculation for this resistor looks like: R = V/I ~= (5-1.6)/.035 =100 ohms</p>
+<p>Note: For advanced control, a transistor can be used to offload the power requirements from your MCU to a power device (for example transistor). This webpage gives a nice discussion related to this lab:&nbsp;<a rel="nofollow" href="http://www.petervis.com/Raspberry_PI/Driving_LEDs_with_CMOS_and_TTL_Outputs/Driving_an_LED_Using_Transistors.html">http://www.petervis.com/Raspberry_PI/Driving_LEDs_with_CMOS_and_TTL_Outputs/Driving_an_LED_Using_Transistors.html</a></p>
+</div>
+</div>
+</body>
+</html>

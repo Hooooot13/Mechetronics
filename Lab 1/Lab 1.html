@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 id="firstHeading">Lab introduction</h1>
+<div id="bodyContent">
+<div id="contentSub"></div>
+<div dir="ltr">
+<p>The Mega 2560 is an EVB (EValuation Board) created by the Aruino project built around Atmel's ATmega250 microcontroller. The Mega2560 is capable of handling advanced projects. We will use the capabilities of the board throughout the semester in various applications. The purpose of this introductory lab is to ensure proper set up of the programming environment, Arduino Software (IDE). Your technical objective for the lab is to create an electronic recipe for one entree of your choice. You recipe should provide the recipe (ingredients and instructions) timed appropriately so that one can follow the recipe to make the dish. You should test the result of this exercise on a friend and report on the outcome.&nbsp;</p>
+<p></p>
+<table id="toc">
+<tbody>
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+&nbsp;[<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_introduction#" id="togglelink">hide</a>]&nbsp;</div>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_introduction#Download_the_software">1&nbsp;Download the software</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_introduction#Hardware_Setup">2&nbsp;Hardware Setup</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_introduction#To_run_an_existing_program_from_Arduino_Examples">3&nbsp;To run an existing program from Arduino Examples</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Lab_introduction#Writing_your_First_Program">4&nbsp;Writing your First Program</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="Download_the_software">Download the software</span></h2>
+<p>The Arduino MEGA board requires ARDUINO 1.6.7 or newer<br />Download ARDUINO 1.6.7 or newer, this enables you to write and upload code to the Arduino board. It can be installed on Windows or Mac operating systems.</p>
+<ul style="list-style-type: square;">
+<li>
+<div>
+<div>
+<div><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Arduino_IDE.JPG"><img alt="" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/9/96/Arduino_IDE.JPG/120px-Arduino_IDE.JPG" width="120" height="44" style="border-width: initial; border-image-width: initial;" /></a></div>
+</div>
+<div>
+<p>Arduino MEGA 2560</p>
+</div>
+</div>
+</li>
+</ul>
+<ol>
+<li>To download, go to the Arduino.cc website&nbsp;<a rel="nofollow" href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a></li>
+<li>After selecting the operating system, follow the instructions to download the latest Arduino environment. Install the software after it is downloaded.</li>
+<li>If necessary, follow the instructions on how to install the drivers.</li>
+</ol>
+<h2><span id="Hardware_Setup">Hardware Setup</span></h2>
+<p>This section will provide instruction on the first time you use the Arduino Hardware. You will need the ATmega 2560 on and evb (the Arduino mega) and an lcd display.&nbsp;</p>
+<ol>
+<li>Assemble basic components</li>
+</ol>
+<ul style="list-style-type: square;">
+<li>
+<div>
+<div>
+<div><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Arduino_MEGA_2560.jpg"><img alt="" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/3/3c/Arduino_MEGA_2560.jpg/120px-Arduino_MEGA_2560.jpg" width="120" height="90" style="border-width: initial; border-image-width: initial;" /></a></div>
+</div>
+<div>
+<p>Arduino MEGA 2560</p>
+</div>
+</div>
+</li>
+</ul>
+<ol>
+<li>plug the USB cable into your computer and board.</li>
+<li>Launch the Arduino software and select the appropriate board from Tools &gt; Board &gt; Arduino Mega or Mega 2560.</li>
+<li>Select the serial port by clicking Port in the tools menu Tools &gt; Port &gt; COM3. MAKE SURE YOU CLICK ON THE PORT. Typically the default is COM3.</li>
+<li>if you are unsure which port to use:</li>
+</ol>
+<ul style="list-style-type: square;">
+<li>Click "Start"</li>
+<li>Right click on "Computer"</li>
+<li>Select "Manage"</li>
+<li>Select "Device Manager"</li>
+<li>Expand the "Ports (Com &amp; LPT)" section</li>
+<li>Note the number of the COM port (e.g. COM7) used by the USB</li>
+<li>Ensure that the COM port number is between COM1 and COM8.</li>
+<li>If not, reassign the USB to a COM port in that range.</li>
+</ul>
+<dl>
+<dd>Right Click, on the COM PORT and go toProperties.</dd>
+<dd>Click on Port Settings and then click on Advancebutton.</dd>
+<dd>Chose a port number between 1 to 8</dd>
+<dd>In the "Action" menu, choose"Scan for hardware changes"</dd>
+</dl>
+<h2><span id="To_run_an_existing_program_from_Arduino_Examples">To run an existing program from Arduino Examples</span></h2>
+<p>1. Launch the Arduino application.<br />2. Go to File &gt;Examples &gt; 01.Basics &gt; Blink. This will open a pre-written program that controls the LED on pin 13.&nbsp;<br />3. You can alter the on and off times by changing the value in delay(1000). delay(1000) calls the function delay and sends it a delay time in milliseconds before moving to the next command.</p>
+<p>4. press the arrow button to upload your program and check to see that theLED on and off times are as you specified in the program.</p>
+<p></p>
+<h2><span id="Writing_your_First_Program">Writing your First Program</span></h2>
+<p><strong>Introducion</strong></p>
+<p>This section will walk you through the process of creating your first program with the ARDUINO 1.6.7 programming toolkit. In this exercise you will create a simple program to print "Hello World!" to the serial screen.</p>
+<p><strong>Procedure</strong>&nbsp;1. Launch ARDUINO 1.6.7<br />2. This gives a blank program to you. It contains two parts, Setup{ } and Loop{ }. Think of setup as everything that would go before main and Loop as Main.<br />3. Create setup part of code. enter the following code to initialize a printer to the serial monitor.&nbsp;</p>
+<p></p>
+<pre> void setup() { // put your setup code here, to run once:
+ Serial.begin(9600);       // Initialize the Serial
+   while (! Serial);       // Wait for Serial to be ready
+   Serial.println("Serial is ready"); // print to the Serial port
+  }
+</pre>
+<p>4. Go to Loop and create the main part of code. Enter the following code:&nbsp;</p>
+<pre> void loop() { // put your loopcode here, to run repeatedly:
+   Serial.println("Hello World!"); // print to the Serial port
+   delay(1000);  // delay 1000 ms
+   Serial.println("goodbye World!); // print to the serial port
+   delay(1000);  // delay 1000 ms
+ }
+</pre>
+<p>5. upload the file by pressing the right arrow at the top of the ide<br />6. If any errors occur, check your board selection and port. Then go to the online debugger<br />7. To see the output, open the serial monitor. Go to Tools &gt; Serial Monitor<br />8. You should see output as programmed</p>
+<p>Completing the lab</p>
+<p>Now write your own program to make an electronic recipe. Use the commands available in the example code above**. You should also explore the arduino ide and test the other onboard functions such as blink, etc.&nbsp;</p>
+<p>Complete the recipe, test on a friend and provide a complete summary in your lab report.&nbsp;</p>
+<p></p>
+<p>**Note that in this course we will be developing the vast majority of our own functions by directly controlling the board the the register block. Early on, there will be functions that you can use (such as Serial.println and delay), but the use of these functions are only allowed when approved. In general we will create our own code. For the remainder of the course though you can make use of the Serial.println function.</p>
+<p></p>
+<p>Complete the&nbsp;<strong>short</strong>&nbsp;lab writeup found in Lab Templates. Summarize what you did in this program.</p>
+</div>
+</div>
+</body>
+</html>

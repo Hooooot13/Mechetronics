@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 id="firstHeading">Lab #6: Stepper Motors</h1>
+<div id="bodyContent">
+<div id="contentSub"></div>
+<div dir="ltr">
+<table id="toc">
+<tbody>
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+&nbsp;[<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#" id="togglelink">hide</a>]&nbsp;</div>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#Description">1&nbsp;Description</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#Assignment">2&nbsp;Assignment</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#What_to_turn_in">3&nbsp;What to turn in</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#Hardware_Components">4&nbsp;Hardware Components</a>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#Stepper_Motor">4.1&nbsp;Stepper Motor</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#Motor_Driver">4.2&nbsp;Motor Driver</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Stepper_Motor#Video_Example">4.3&nbsp;Video Example</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="Description">Description</span></h2>
+<p>In this lab we will control the motion of a stepper motor using I/O output on the ATmega2560 and a H-bridge motor driver.</p>
+<h2><span id="Assignment">Assignment</span></h2>
+<p>Develop a program to make use of one stepper motor providing better than 1-degree of accuracy. An IR sensor can also be implemented for the lab. A few suggested applications:</p>
+<ul style="list-style-type: square;">
+<li>Create a scanning range sensor that will scan a defined pattern and have 2 functions: i) continuous scan and report distance on the screen, ii) point toward the closest object from the most recent scan. You can use the Sharp IR range sensor.</li>
+<li>Create a "sun tracker system" that will track a light source in one dimension.</li>
+</ul>
+<h2><span id="What_to_turn_in">What to turn in</span></h2>
+<ul style="list-style-type: square;">
+<li>the&nbsp;<strong>short</strong>&nbsp;lab report</li>
+<li>Due one week after assignment</li>
+</ul>
+<h2><span id="Hardware_Components">Hardware Components</span></h2>
+<h3><span id="Stepper_Motor">Stepper Motor</span></h3>
+<p>The stepper motor is introduced in this lab. The stepper motor consists of a permanent magnet rotor with a series of alternating N/S poles, and a stator consisting of two phases, each providing alternating electromagnetic poles. The number of PM and EM poles cannot be equal or equally divisible. To control the stepper, the input to the two phases must be indexed through a pattern of four states (full stepping) or eight states (half stepping).</p>
+<h3><span id="Motor_Driver">Motor Driver</span></h3>
+<p>The sn754410ne (datasheet found here&nbsp;<a rel="nofollow" href="http://www.ti.com/lit/ds/symlink/sn754410.pdf">http://www.ti.com/lit/ds/symlink/sn754410.pdf</a>) quadruple Half-H driver will be used to control the output of the stepper motor. The picture below shows the pinout for the driver with a four lead stepper motor connected. OUT 1-2 are connected to one winding and OUT 3-4 are connected to the other. In order to identify the which wires are connected in each winding use a multimeter to measure the resistance between each wire. If there is a reading then the wires are part of the same winding. IN 1-4 will come from the ATmega2560 port that you specify and will be used to energize the perspective outputs.</p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Sn754410ne.gif"><img alt="Sn754410ne.gif" src="http://matlab-nsfwiki.csc.tntech.edu/images/3/30/Sn754410ne.gif" width="338" height="271" style="border-width: initial; border-image-width: initial;" /></a></p>
+<h3><span id="Video_Example">Video Example</span></h3>
+<p>In order to control the stepper motor the outputs of the driver must be properly connected to the motor windings and the inputs must be energized in the proper sequence. The video below shows how to test the wires as well as proper and improper stepping sequences.</p>
+<p></p>
+</div>
+</div>
+</body>
+</html>

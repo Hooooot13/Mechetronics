@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 id="firstHeading">Lab #7: External Interrupt</h1>
+<div id="bodyContent">
+<div id="contentSub"></div>
+<div dir="ltr">
+<table id="toc">
+<tbody>
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+&nbsp;[<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/External_Interrupt#" id="togglelink">hide</a>]&nbsp;</div>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/External_Interrupt#Description">1&nbsp;Description</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/External_Interrupt#Your_Assignment">2&nbsp;Your Assignment</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/External_Interrupt#What_to_turn_in">3&nbsp;What to turn in</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/External_Interrupt#Registers">4&nbsp;Registers</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/External_Interrupt#Hardware">5&nbsp;Hardware</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="Description">Description</span></h2>
+<p>This lab demonstrates the use of interrupts on the ATmega 2560. An interrupt, also known as an Interrupt Service Routine (ISR), is a special function that is called by the microcontroller when certain conditions are present (such as when an assigned pushbutton has been pressed). These functions can be used to interface with hardware, or to ensure a function is called at regular intervals using the timer hardware.</p>
+<h2><span id="Your_Assignment">Your Assignment</span></h2>
+<ol>
+<li>Set up the registers for the interrupt</li>
+<li>Create an interrupt subroutine to index an optical encoder</li>
+</ol>
+<p></p>
+<h2><span id="What_to_turn_in">What to turn in</span></h2>
+<ul style="list-style-type: square;">
+<li>lab report&nbsp;<strong>short</strong></li>
+<li>1 week after assignment</li>
+</ul>
+<h2><span id="Registers">Registers</span></h2>
+<p>The following link will bring you to the datasheet for the ATmega 2560 (<a rel="nofollow" href="http://www.atmel.com/Images/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf">http://www.atmel.com/Images/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf</a>). Refer to section 15 (page 109) for a complete description of the external interrupt registers.</p>
+<h2><span id="Hardware">Hardware</span></h2>
+<p>You will be using the GM9236S019 DC Servo Gearmotor along with a power supply for this lab. You must exercise caution when running the motor so as not to burn it out. The voltage is not to exceed 5V and the current is not to exceed 50mA. To begin, turn the current knob all the way to the left. This will cause a short and drop your voltage near zero. Slowly turn the current knob to the right until you have a reading of not more than 50mA. Then adjust your voltage to 5 volts.</p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Motor_encoder_pow_sup.jpg"><img alt="Motor encoder pow sup.jpg" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/d/d0/Motor_encoder_pow_sup.jpg/700px-Motor_encoder_pow_sup.jpg" width="700" height="394" style="border-width: initial; border-image-width: initial;" /></a></p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Motor_encoder_wires.jpg"><img alt="Motor encoder wires.jpg" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/8/86/Motor_encoder_wires.jpg/675px-Motor_encoder_wires.jpg" width="675" height="380" style="border-width: initial; border-image-width: initial;" /></a></p>
+<p><br />The user manual for the motor can be found at the following link,&nbsp;<a rel="nofollow" href="https://www.servo2go.com/support/downloads/CSuppliersPittman.pdf">https://www.servo2go.com/support/downloads/CSuppliersPittman.pdf</a></p>
+<p>The spec sheet for the motor is found at the following link,<a rel="nofollow" href="https://www.servo2go.com/support/downloads/GM9236S019.pdf">https://www.servo2go.com/support/downloads/GM9236S019.pdf</a></p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 id="firstHeading">Lab #4: ATD (Analog To Digital conversion)</h1>
+<div id="bodyContent">
+<div id="contentSub"></div>
+<div dir="ltr">
+<table id="toc">
+<tbody>
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+&nbsp;[<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Arduino_ATD#" id="togglelink">hide</a>]&nbsp;</div>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Arduino_ATD#Description">1&nbsp;Description</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Arduino_ATD#Your_Assignment">2&nbsp;Your Assignment</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Arduino_ATD#Mechatronics_Construct">3&nbsp;Mechatronics Construct</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Arduino_ATD#Programming_Construct">4&nbsp;Programming Construct</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Arduino_ATD#What_to_turn_in">5&nbsp;What to turn in</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Arduino_ATD#Hardware_Components">6&nbsp;Hardware Components</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="Description">Description</span></h2>
+<p>This lab will cover the basic use of the analog to digital converter on the ATMega2560. You will incorporate a sensor with analog output (for example the Sharpe GP series IR range sensor) into a simple product application. Some suggestions are: 1) Use the IR range sensor to create a "tapeless" tape measure, 2) device that attaches to a walker or cane of a person with visual impairments to look for obstacles 3) non-contact passcode input where you use the sensor to read a series of four distances to unlock your code.</p>
+<p></p>
+<h2><span id="Your_Assignment">Your Assignment</span></h2>
+<p>Your overall objective is to develop a product that makes use of the SHARP GP series IR ranger. This ranger returns an analog voltage signal that is proportional to the measured distance to an object. The signal is non-linear however. So your product must convert both units (Volts to cm or inches) and be calibrated to yield +/- .5cm accuracy over the primary range of the sensor. A suggested procedure is as follows: follows:</p>
+<ol>
+<li>Application must use Sharp GP IR ranger with analog output</li>
+<li>Must demonstrated a resolution of .5 cm or better</li>
+<li>must display measured distance in cm (best) or inches</li>
+<li>Must have some output that makes use of the range sensor information&nbsp;</li>
+<li>Implement and demonstrate in a product application</li>
+<li>Demo to lab assistant, instructor or other person with mechatronics background, document in your report.</li>
+<li>Test your product on someone outside the class, record their use of your product, discuss outcomes in your report..</li>
+</ol>
+<p><br />These represent the minimum requirements.</p>
+<h2><span id="Mechatronics_Construct">Mechatronics Construct</span></h2>
+<ul style="list-style-type: square;">
+<li>Using ADC on MCU</li>
+<li>Input filter for data</li>
+<li>Data transformation</li>
+<li>Input-logic-output loop</li>
+</ul>
+<p></p>
+<h2><span id="Programming_Construct">Programming Construct</span></h2>
+<ul style="list-style-type: square;">
+<li>Data types</li>
+<li>loops (for, while)</li>
+<li>Standard functions</li>
+</ul>
+<h2><span id="What_to_turn_in">What to turn in</span></h2>
+<ul style="list-style-type: square;">
+<li>the&nbsp;<strong>short</strong>&nbsp;lab report</li>
+<li>Due one week after assignment</li>
+</ul>
+<h2><span id="Hardware_Components">Hardware Components</span></h2>
+<p>An sensor with analog output is introduced, the Sharp GP series IR ranger.&nbsp;<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Image_sharp_IR_ranger.jpg"><img alt="Image sharp IR ranger.jpg" src="http://matlab-nsfwiki.csc.tntech.edu/images/f/f6/Image_sharp_IR_ranger.jpg" width="256" height="192" style="border-width: initial; border-image-width: initial;" /></a><br />A datasheet on a specific ranger, and overview of these rangers are provided in the following links:&nbsp;<a rel="nofollow" href="http://www.sharpsma.com/webfm_send/1203">Sharp GP2D12 sensor data sheet</a>]]</p>
+<p><a rel="nofollow" href="http://www.acroname.com/robotics/info/articles/sharp/sharp.html">Sharp GP series ranger overview</a>]]</p>
+</div>
+</div>
+</body>
+</html>

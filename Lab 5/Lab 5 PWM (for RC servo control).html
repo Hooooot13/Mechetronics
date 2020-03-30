@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 id="firstHeading">Lab #5: PWM (for RC Servo Control)</h1>
+<div id="bodyContent">
+<div id="contentSub"></div>
+<div dir="ltr">
+<table id="toc">
+<tbody>
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+&nbsp;[<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/PWM_Servo_Control#" id="togglelink">hide</a>]&nbsp;</div>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/PWM_Servo_Control#Description">1&nbsp;Description</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/PWM_Servo_Control#Your_Assignment">2&nbsp;Your Assignment</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/PWM_Servo_Control#What_to_turn_in">3&nbsp;What to turn in</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/PWM_Servo_Control#ATmega2560_Register_information:">4&nbsp;ATmega2560 Register information:</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/PWM_Servo_Control#Hardware_Components">5&nbsp;Hardware Components</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="Description">Description</span></h2>
+<p>This lab presents communication and control of a servo motor system. The motor system is a standard RC servo with commands sent via control of the pulse width on a PWM signal. You lab will create a basic RC servo control system capable of performing one or more operations on one or more RC servo motors. This lab demonstrates the use of the PWM on the ATmega2560 and uses this to send command signals to a standard RC servo.</p>
+<h2><span id="Your_Assignment">Your Assignment</span></h2>
+<p>Your overall objective is to develop a product that makes use of one or more RC servo motors controlled in a coordinated fashion. A sensor can also be implemented into the lab as appropriate. Your system should provide a 2-4 degree accuracy of the RC servo. A few suggested implementations are as follows:</p>
+<ul style="list-style-type: square;">
+<li>Control the two-link robot arm to draw geometric shapes - there are 2-3 two-link arms available in the lab.</li>
+<li>Create a scanning range sensor that will scan a 180 degree pattern and have 2 functions: i) continuous scan and report distance on the screen, ii) point toward the closest object from the most recent scan. You can use the Sharp IR range sensor.</li>
+<li>Create a "sun tracker system" that will track a light source in one dimension.</li>
+</ul>
+<p></p>
+<h2><span id="What_to_turn_in">What to turn in</span></h2>
+<ul style="list-style-type: square;">
+<li>the&nbsp;<strong>short</strong>&nbsp;lab report</li>
+<li>Due one week after assignment</li>
+</ul>
+<h2><span id="ATmega2560_Register_information:">ATmega2560 Register information:</span></h2>
+<p>A PWM (Pulse-width modulated) signal is a square wave with specificed period and duty cycle, defined as period (t_period) and the time the output is high (t_duty). This is shown in the figure below.</p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:PWM_figure.PNG"><img alt="PWM figure.PNG" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/5/52/PWM_figure.PNG/256px-PWM_figure.PNG" width="256" height="203" style="border-width: initial; border-image-width: initial;" /></a></p>
+<p>PWM has to be set up using the appropriate registers to define the duty cycle, clock speed, etc.. Register information for the ATmega2560 can be found at the following link&nbsp;<a rel="nofollow" href="http://www.atmel.com/Images/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf">http://www.atmel.com/Images/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf</a></p>
+<h2><span id="Hardware_Components">Hardware Components</span></h2>
+<p>The RC servo motor is introduced in this lab. The RC servo consists of a permanent magnet direct current (PMDC) motor, gearing, potentiometer as encoder, a circuit to measure incoming pulse width, current motor angle and send motor commands, and a motor driver. More details on the RC servo motor can be found here:&nbsp;<a rel="nofollow" href="http://en.wikipedia.org/wiki/Servo_(radio_control)">http://en.wikipedia.org/wiki/Servo_(radio_control)</a></p>
+<p>The example below uses PORTB to address the servo motor. The signal wire is connected to port B5(digital pin 11).</p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Servoports_.jpeg"><img alt="Servoports .jpeg" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/5/56/Servoports_.jpeg/400px-Servoports_.jpeg" width="400" height="300" style="border-width: initial; border-image-width: initial;" /></a></p>
+<p><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Servowires.jpeg"><img alt="Servowires.jpeg" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/6/64/Servowires.jpeg/400px-Servowires.jpeg" width="400" height="300" style="border-width: initial; border-image-width: initial;" /></a></p>
+</div>
+</div>
+</body>
+</html>

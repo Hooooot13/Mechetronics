@@ -1,0 +1,147 @@
+<pre>
+<font color="#95a5a6">&#47;****************************************************************</font>
+<font color="#95a5a6"> * &nbsp;ECE4370 - Mechatronics &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * &nbsp;Dr. Stephen Canfield &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * &nbsp;LAB 4: Electronic tape measure using Sharp IR sensor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;through ATD conversion &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * Written by: Joey Franklin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and &nbsp;Levi Carroll &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> ***************************************************************&#47;</font>
+<font color="#5e6d03">#include</font> <font color="#434f54">&lt;</font><b><font color="#d35400">LiquidCrystal</font></b><font color="#434f54">.</font><font color="#000000">h</font><font color="#434f54">&gt;</font>
+
+<font color="#434f54">&#47;&#47; initialize the library by providing LCD pin locations</font>
+<b><font color="#d35400">LiquidCrystal</font></b> <font color="#000000">lcd</font><font color="#000000">(</font><font color="#000000">8</font><font color="#434f54">,</font><font color="#000000">9</font><font color="#434f54">,</font><font color="#000000">7</font><font color="#434f54">,</font><font color="#000000">6</font><font color="#434f54">,</font><font color="#000000">5</font><font color="#434f54">,</font><font color="#000000">4</font><font color="#000000">)</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47; Declare Functions</font>
+<font color="#00979c">void</font> <font color="#000000">lcd_display</font><font color="#000000">(</font><font color="#00979c">String</font> <font color="#000000">units</font><font color="#434f54">,</font> <font color="#00979c">int</font> <font color="#000000">val</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#00979c">float</font> <font color="#000000">find_median</font><font color="#000000">(</font><font color="#00979c">int</font> <font color="#000000">n</font><font color="#434f54">,</font> <font color="#00979c">float</font> <font color="#000000">x</font><font color="#000000">[</font><font color="#000000">]</font><font color="#000000">)</font><font color="#000000">;</font>
+
+<font color="#434f54">&#47;&#47; Variables to Hold Readings and Median of them</font>
+<font color="#00979c">float</font> <font color="#000000">ir_volt</font><font color="#000000">[</font><font color="#000000">11</font><font color="#000000">]</font> <font color="#434f54">=</font><font color="#000000">{</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#000000">}</font><font color="#000000">;</font>
+<font color="#00979c">float</font> <font color="#000000">ir_volt_median</font> <font color="#434f54">=</font> <font color="#000000">0</font><font color="#000000">;</font>
+<font color="#00979c">float</font> <font color="#000000">measurement</font> <font color="#434f54">=</font> <font color="#000000">0</font><font color="#000000">;</font>
+<font color="#00979c">const</font> <font color="#00979c">int</font> <font color="#000000">Button</font> <font color="#434f54">=</font> <font color="#000000">0x01</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;PIN 22</font>
+<font color="#00979c">bool</font> <font color="#000000">run_measure</font><font color="#434f54">=</font> <font color="#00979c">false</font><font color="#000000">;</font>
+<font color="#00979c">bool</font> <font color="#000000">lcd_backlight</font> <font color="#434f54">=</font> <font color="#00979c">false</font><font color="#000000">;</font>
+<font color="#434f54">&#47;&#47; Setup </font>
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Set PA0 as input</font>
+ &nbsp;<font color="#000000">DDRA</font><font color="#434f54">=</font><font color="#000000">0b00000000</font><font color="#000000">;</font>
+ &nbsp;
+ &nbsp;<font color="#434f54">&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47; Set up AtoD Converter &#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Set Voltage Reference to 1024 = AVREF = 2.56 --&gt; bit 7, bit 6</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Left Justify Register Read For Easier Calculations --&gt; bit 5</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Use PF0 --&gt; bit 4, bit 3, bit 2, bit 1, bit 0</font>
+ &nbsp;<font color="#000000">ADMUX</font> <font color="#434f54">=</font> <font color="#000000">0b01100000</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47; Enable AtoD Conversion --&gt; bit 7</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Start AtoD Conversions --&gt; bit 6</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Dont Use Auto Trigger --&gt; bit 5</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Clear Interrupt Flag --&gt; bit 4</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Enable Interrupts --&gt; bit 3</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Set pre-scaler to 16 --&gt; bit 2, bit 1, bit0</font>
+ &nbsp;<font color="#000000">ADCSRA</font> <font color="#434f54">=</font> <font color="#000000">0b10000100</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47; Enable AtoD Conversion</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Start AtoD Conversions</font>
+ &nbsp;
+ &nbsp;&nbsp;<font color="#434f54">&#47;&#47; Initialize the Serial</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">9600</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47; Wait for Serial to be ready</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#434f54">!</font> <b><font color="#d35400">Serial</font></b><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47; print to the Serial port</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#005c5f">&#34;Serial is ready&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Set LCD Size</font>
+ &nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">16</font><font color="#434f54">,</font><font color="#000000">2</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#000000">{</font>
+<font color="#5e6d03">if</font><font color="#000000">(</font><font color="#000000">PINA</font><font color="#434f54">&amp;</font><font color="#000000">Button</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">200</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">run_measure</font> <font color="#434f54">=</font> <font color="#434f54">!</font><font color="#000000">run_measure</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+<font color="#5e6d03">while</font><font color="#000000">(</font><font color="#000000">run_measure</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;<font color="#434f54">&#47;&#47;&#47;&#47; Select AtoD Channel (ADC0,PF0,pin97) &#47;&#47;&#47;&#47;</font>
+ &nbsp;<font color="#000000">ADMUX</font> <font color="#434f54">&amp;=</font> <font color="#000000">0b11110000</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">ADMUX</font> <font color="#434f54">|=</font> <font color="#000000">0b00000000</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;&#47;&#47; Start AtoD Conversions (bit 6) &#47;&#47;&#47;&#47;</font>
+ &nbsp;<font color="#000000">ADCSRA</font> <font color="#434f54">|=</font> <font color="#000000">0b01000000</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47;&#47;&#47; Wait until Conversion Complete Flag is set (bit 4) &#47;&#47;&#47;&#47;</font>
+ &nbsp;<font color="#5e6d03">while</font><font color="#000000">(</font><font color="#434f54">!</font><font color="#000000">(</font><font color="#000000">ADCSRA</font> <font color="#434f54">&amp;</font> <font color="#000000">0b00010000</font><font color="#000000">)</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#434f54">&#47;&#47; Read High Register Data to Fill Pre-Sized Array &#47;&#47;</font>
+ &nbsp;<font color="#5e6d03">for</font><font color="#000000">(</font><font color="#00979c">int</font> <font color="#000000">num_readings</font> <font color="#434f54">=</font> <font color="#000000">0</font><font color="#000000">;</font> <font color="#000000">num_readings</font> <font color="#434f54">&lt;=</font> <font color="#000000">10</font><font color="#000000">;</font> <font color="#000000">num_readings</font><font color="#434f54">++</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">ir_volt</font><font color="#000000">[</font><font color="#000000">num_readings</font><font color="#000000">]</font> <font color="#434f54">=</font> <font color="#000000">ADCH</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;
+ <font color="#434f54">&#47;&#47; Set the Value to be displayed on the LCD &#47;&#47;</font>
+ &nbsp;<font color="#000000">ir_volt_median</font> <font color="#434f54">=</font> <font color="#000000">find_median</font><font color="#000000">(</font><font color="#000000">11</font><font color="#434f54">,</font><font color="#000000">ir_volt</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;&nbsp;<font color="#434f54">&#47;&#47; Convert Voltage to cm with curve fit from Excel 175.95e-0.026x</font>
+ &nbsp;<font color="#000000">measurement</font> <font color="#434f54">=</font> <font color="#000000">(</font><font color="#000000">2772.8</font><font color="#434f54">*</font><font color="#d35400">pow</font><font color="#000000">(</font><font color="#000000">ir_volt_median</font><font color="#434f54">&#47;</font><font color="#000000">2</font><font color="#434f54">,</font> <font color="#434f54">-</font><font color="#000000">1.2045</font><font color="#000000">)</font><font color="#000000">)</font><font color="#434f54">&#47;</font><font color="#000000">2</font><font color="#000000">;</font>
+ &nbsp;
+
+ <font color="#434f54">&#47;&#47; Print Value to the LCD &#47;&#47;</font>
+ &nbsp;<font color="#000000">lcd_display</font> <font color="#000000">(</font><font color="#005c5f">&#34;cm&#34;</font><font color="#434f54">,</font> <font color="#000000">measurement</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<font color="#5e6d03">if</font><font color="#000000">(</font><font color="#000000">PINA</font><font color="#434f54">&amp;</font><font color="#000000">Button</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">200</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">run_measure</font> <font color="#434f54">=</font> <font color="#434f54">!</font><font color="#000000">run_measure</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+<font color="#000000">}</font>
+<font color="#000000">}</font>
+
+<font color="#95a5a6">&#47;**************************************</font>
+<font color="#95a5a6"> * Function Name: find_median &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * Recieves an Array to be &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * sorted and its size &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * Written By: Joey Franklin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> **************************************&#47;</font>
+<font color="#00979c">float</font> <font color="#000000">find_median</font><font color="#000000">(</font><font color="#00979c">int</font> <font color="#000000">n</font><font color="#434f54">,</font> <font color="#00979c">float</font> <font color="#000000">x</font><font color="#000000">[</font><font color="#000000">]</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#00979c">int</font> <font color="#000000">temp</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#00979c">int</font> <font color="#000000">i</font><font color="#434f54">,</font> <font color="#000000">j</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; the following two loops sort the array x in ascending order</font>
+ &nbsp;&nbsp;&nbsp;<font color="#5e6d03">for</font><font color="#000000">(</font><font color="#000000">i</font><font color="#434f54">=</font><font color="#000000">0</font><font color="#000000">;</font> <font color="#000000">i</font><font color="#434f54">&lt;</font><font color="#000000">n</font><font color="#434f54">-</font><font color="#000000">1</font><font color="#000000">;</font> <font color="#000000">i</font><font color="#434f54">++</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#5e6d03">for</font><font color="#000000">(</font><font color="#000000">j</font><font color="#434f54">=</font><font color="#000000">i</font><font color="#434f54">+</font><font color="#000000">1</font><font color="#000000">;</font> <font color="#000000">j</font><font color="#434f54">&lt;</font><font color="#000000">n</font><font color="#000000">;</font> <font color="#000000">j</font><font color="#434f54">++</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#5e6d03">if</font><font color="#000000">(</font><font color="#000000">x</font><font color="#000000">[</font><font color="#000000">j</font><font color="#000000">]</font> <font color="#434f54">&lt;</font> <font color="#000000">x</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; swap elements</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">temp</font> <font color="#434f54">=</font> <font color="#000000">x</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font><font color="#000000">[</font><font color="#000000">i</font><font color="#000000">]</font> <font color="#434f54">=</font> <font color="#000000">x</font><font color="#000000">[</font><font color="#000000">j</font><font color="#000000">]</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font><font color="#000000">[</font><font color="#000000">j</font><font color="#000000">]</font> <font color="#434f54">=</font> <font color="#000000">temp</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+
+ &nbsp;&nbsp;&nbsp;<font color="#5e6d03">if</font><font color="#000000">(</font><font color="#000000">n</font><font color="#434f54">%</font><font color="#000000">2</font><font color="#434f54">==</font><font color="#000000">0</font><font color="#000000">)</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; if there is an even number of elements, return mean of the two elements in the middle</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#5e6d03">return</font><font color="#000000">(</font><font color="#000000">(</font><font color="#000000">x</font><font color="#000000">[</font><font color="#000000">n</font><font color="#434f54">&#47;</font><font color="#000000">2</font><font color="#000000">]</font> <font color="#434f54">+</font> <font color="#000000">x</font><font color="#000000">[</font><font color="#000000">n</font><font color="#434f54">&#47;</font><font color="#000000">2</font> <font color="#434f54">-</font> <font color="#000000">1</font><font color="#000000">]</font><font color="#000000">)</font> <font color="#434f54">&#47;</font> <font color="#000000">2.0</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">}</font> <font color="#5e6d03">else</font> <font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; else return the element in the middle</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#5e6d03">return</font> <font color="#000000">x</font><font color="#000000">[</font><font color="#000000">n</font><font color="#434f54">&#47;</font><font color="#000000">2</font><font color="#000000">]</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">}</font>
+<font color="#000000">}</font>
+
+
+<font color="#95a5a6">&#47;**************************************</font>
+<font color="#95a5a6"> * Function Name: lcd_display &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * Revieves a number and string to &nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * display on the LCD &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> * Written By: Joey Franklin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</font>
+<font color="#95a5a6"> **************************************&#47;</font>
+<font color="#00979c">void</font> <font color="#000000">lcd_display</font><font color="#000000">(</font><font color="#00979c">String</font> <font color="#000000">units</font><font color="#434f54">,</font> <font color="#00979c">float</font> <font color="#000000">val</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; print to the LCD</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">setCursor</font><font color="#000000">(</font><font color="#000000">4</font><font color="#434f54">,</font><font color="#000000">0</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;Distance:&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">setCursor</font><font color="#000000">(</font><font color="#000000">6</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#000000">val</font><font color="#434f54">,</font><font color="#000000">2</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">setCursor</font><font color="#000000">(</font><font color="#000000">14</font><font color="#434f54">,</font><font color="#000000">1</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#000000">units</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#434f54">&#47;&#47; delay</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">300</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<font color="#000000">lcd</font><font color="#434f54">.</font><font color="#d35400">clear</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;<font color="#000000">}</font>
+
+</pre>

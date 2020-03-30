@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1 id="firstHeading">Lab #3: Digital Input&nbsp;</h1>
+<div id="bodyContent">
+<div id="contentSub"></div>
+<div dir="ltr">
+<table id="toc">
+<tbody>
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+&nbsp;[<a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#" id="togglelink">hide</a>]&nbsp;</div>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#Description">1&nbsp;Description</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#Your_Assignment">2&nbsp;Your Assignment</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#Deliverables">3&nbsp;Deliverables</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#Programming_Construct">4&nbsp;Programming Construct</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#AtMega_Register_information:">5&nbsp;AtMega Register information:</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#Hardware_Components">6&nbsp;Hardware Components</a>
+<ul style="list-style-type: none;">
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#Polling_for_switches">6.1&nbsp;Polling for switches</a></li>
+<li><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/Input#Keypad_Debouncing">6.2&nbsp;Keypad Debouncing</a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="Description">Description</span></h2>
+<p>This lab introduces the use of inputs with the ATmega2560. You will be writing a passcode program that requires the user to enter the appropriate code using hardwired push buttons to continue with the program (in this case to enter your electronic recipe book)..</p>
+<h2><span id="Your_Assignment">Your Assignment</span></h2>
+<ol>
+<li>Prompt the user to enter a&nbsp;<strong>4</strong>&nbsp;digit passcode</li>
+<li>The passcode is entered using hard wired pushbuttons.</li>
+<li>Save the 4 numbers into memory</li>
+<li>Once the passcode has been entered the safe needs to be closed. For a recipe book, this can be a display, "Recipe locked". For a mechanical safe, you can turn the RC servo motor to the closed position signifying the safe being closed.</li>
+<li>Prompt the user to press any switch to unlock the safe.</li>
+<li>Prompt the user enter their passcode</li>
+<li>Check the passcode, open if correct, do not open if incorrect.</li>
+<li>You should allow the user to enter the entire passcode before checking it. Nice features might be to show a character as the user enters the passcode.</li>
+<li>Allow the user up to three attempts, if they fail on the third attempt, display some failure message, and end the program without opening the safe.</li>
+<li>When the safe is opened, you can continue to the recipe.&nbsp;</li>
+</ol>
+<h2><span id="Deliverables">Deliverables</span></h2>
+<ul style="list-style-type: square;">
+<li><strong>Short</strong>&nbsp;lab report</li>
+<li>Due one week after lab is assigned</li>
+</ul>
+<h2><span id="Programming_Construct">Programming Construct</span></h2>
+<ul style="list-style-type: square;">
+<li>Input / Output</li>
+<li>Sequence</li>
+<li>Nested double selection (Nested If/Else)</li>
+</ul>
+<p></p>
+<h2><span id="AtMega_Register_information:">ATmega Register information:</span></h2>
+<p>This lab makes use of the I/O capability on the ATmega 2560. Most ports on the ATmega can be configured as general purpose I/O. The notes contained in the link below provide more detail in I/O functionality and some programming examples.</p>
+<p><a rel="nofollow" href="http://www.cae.tntech.edu/~scanfield/ME%204370%20dropbox/notes%20-%20S12%20functionality/S12%20Parallel%20IO.doc">I/O on S12 Notes</a>]]</p>
+<h2><span id="Hardware_Components">Hardware Components</span></h2>
+<p>This lab introduces digital inputs. The inputs to be used are four momentary push-button switches. The figure below shows one of these switches.</p>
+<ul style="list-style-type: square;">
+<li>
+<div>
+<div>
+<div><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Pushbutton_switch_schematic.png"><img alt="" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/5/58/Pushbutton_switch_schematic.png/120px-Pushbutton_switch_schematic.png" width="120" height="79" style="border-width: initial; border-image-width: initial;" /></a></div>
+</div>
+<div>
+<p>Pushbutton switch schematic</p>
+</div>
+</div>
+</li>
+</ul>
+<p><br />Note that the port pin is connected to the switch in parallel with a pull-up resister. When the switch is open (not pressed), the input on the pin is high. When the swtich is closed (pressed), the input on the pin is low.</p>
+<p></p>
+<h3><span id="Polling_for_switches">Polling for switches</span></h3>
+<p>Reading input on switches creates another point for consideration. The state is read during a single operation, typically lasting for less than 5 clock cycles. Therefore, the switch press must be timed with a read on the appropriate port. For standard I/O, this is handled through a process called polling - repeatedly reading the state of the switch until it is pressed (or some timeout occurs).</p>
+<h3><span id="Keypad_Debouncing">Keypad Debouncing</span></h3>
+<p>Whenever a key is pressed, there are small mechanical vibrations that cause noise on the input, which can cause the microcontroller to detect several key-presses instead of just one. You can solve this problem using software or hardware. Here is an example of a hardware keypad debouncing solution:</p>
+<ul style="list-style-type: square;">
+<li>
+<div>
+<div>
+<div><a href="http://matlab-nsfwiki.csc.tntech.edu/index.php/File:Keypad_depouncing.png"><img alt="" src="http://matlab-nsfwiki.csc.tntech.edu/images/thumb/9/92/Keypad_depouncing.png/105px-Keypad_depouncing.png" width="105" height="120" style="border-width: initial; border-image-width: initial;" /></a></div>
+</div>
+<div>
+<p>Switch Debouncing circuit</p>
+</div>
+</div>
+</li>
+</ul>
+<p>The above circuit is a simple low pass filter. The capacitor takes time to charge and discharge which smooths the voltage and filters out high frequency noise. The amount of time it takes to charge and discharge is dependent on the values of R and C used in the circuit. The software solution is to introduce a small delay after a key is pressed and check to make sure the key is still pressed after the delay.</p>
+</div>
+</div>
+</body>
+</html>
