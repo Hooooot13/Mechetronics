@@ -22,17 +22,20 @@ Toners. We will use the various analog input to set the beat and tone of the dev
 */
 
 #include "RangeFinder.h"
+#include "CustomServo.h"
 
 
 
 
 void setup() {
   Serial.begin(9600);
-  RangeSetup();
+  //RangeSetup();
+  SetupServo1();
   //Set PA0 as input
 }
 
 void loop() {
-  Serial.println(RangeFind());
-  delay(1000);
+  //Serial.println(RangeFind());
+  MoveServo1();
+  //delay(1000);
 }
