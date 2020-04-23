@@ -2,6 +2,7 @@
 #define RANGE_FINDER_H
 
 void RangeSetup();
-void RangeFind();
+float RangeFind();
+float find_median(int n, float x[]);
 
 #endif

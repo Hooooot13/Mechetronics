@@ -21,14 +21,18 @@ Toners. We will use the various analog input to set the beat and tone of the dev
   - LCD display
 */
 
+#include "RangeFinder.h"
 
 
 
 
 void setup() {
-
+  Serial.begin(9600);
+  RangeSetup();
+  //Set PA0 as input
 }
 
 void loop() {
-
+  Serial.println(RangeFind());
+  delay(1000);
 }
