@@ -65,10 +65,10 @@ void loop() {
     //enter Password
     if(PasswordCheck() == true){
       //if password is correct open door
-      MoveServo1();
+      OpenDoor();
       //Print to lcd
     }
-    else //else do not open door and print to lcd
+    else ;//else do not open door and print to lcd
   }
   if(RangeFind() < ProximityDistance) {//if proximity is < x open the garage
     OpenGarage();
