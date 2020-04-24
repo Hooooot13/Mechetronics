@@ -36,6 +36,7 @@ void setup() {
 
 void loop() {
   //Serial.println(RangeFind());
-  MoveServo1();
+  //MoveServo1();
+  //MoveServo2();
   // delay(1000);
 }
