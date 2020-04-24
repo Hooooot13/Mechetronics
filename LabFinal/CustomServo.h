@@ -1,9 +1,10 @@
 #ifndef CUSTOM_SERVO_H
 #define CUSTOM_SERVO_H
 
-void SetupServo1();
+const int StartingAngleServo1 = 0;
+const int StartingAngleServo2 = 0;
 
-void MoveServo1();
-void MoveServo2();
+void OpenDoor();
+void OpenGarage();
 
 #endif
