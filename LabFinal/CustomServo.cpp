@@ -2,25 +2,33 @@
 #include <Arduino.h>
 
 void OpenDoor() {
-  int BeatHz = 3;
-  for(int i = 0; i < 150; i++) {
+  for(int i = 90; i < 130; i++) {
     OCR1A = i;
-    delay(25);
+    Serial.println(i);
+    delay(100);
   }
-  for(int i = 150; i > 0; i--) {
+
+}
+
+void CloseDoor() {
+  for(int i = 130; i > 90; i--) {
     OCR1A = i;
-    delay(25);
+    delay(100);
   }
 }
 
 void OpenGarage() {
   int BeatHz = 3;
-  for(int i = 0; i < 150; i++) {
+  for(int i = 30; i < 90; i++) {
     OCR1C = i;
-    delay(7);
+    Serial.println(i);
+    delay(100);
   }
-  for(int i = 150; i > 0; i--) {
+}
+
+void CloseGarage() {
+  for(int i = 90; i > 30; i--) {
     OCR1C = i;
-    delay(7);
+    delay(100);
   }
 }

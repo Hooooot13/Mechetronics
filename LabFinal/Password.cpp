@@ -1,5 +1,8 @@
 #include <Arduino.h>
 #include "Password.h"
+#include <LiquidCrystal.h>
+
+extern LiquidCrystal lcd;
 
 int ReadButtonPad() {
   PORTL = 0x00;
@@ -44,19 +47,15 @@ int ReadButtonPad() {
 
       for(int i = 0; i < 4; i++) {
           input[i] = ReadButtonPad();
-          //lcd.print(input[i]);
+          lcd.print(input[i]);
           if(input[i] == password[i]){
               correct++;
           }
       }
       if(correct != 4) {
-          Serial.println("Wrong");
-          //Serial.print(input);
           return false;
       }
       else if(correct == 4){
-          Serial.println("Correct");
-          //Serial.print(input);
           return true;
       }
   }

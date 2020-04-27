@@ -1,34 +1,28 @@
 /*
-Proposal for a Music Box Like device with two separately timed beats and Pezo Electric
-Toners. We will use the various analog input to set the beat and tone of the devices.
-- 2 sensors
-  - Encoder knob
-  - PWM
-  - Timer counter
-  - (Optional) Joystick
-- 2 actuators
-  - 2 motors
-  - PWM
-  - HMI
-  - LCD
-  - (Optional) 8x8 LED display
-- Other Inputs
-  - 4 buttons
-- Required functionalities
-  - ADC
-  - Timer counter
-  - PWM
-  - LCD display
+Automated home entry system. The system will require a password then automatically open the front door of a model house. This system will also actuate a garage door which opens when it is read by the proximity sensor.
 */
 
 #include "RangeFinder.h"
 #include "CustomServo.h"
 #include "Password.h"
+#include <LiquidCrystal.h>
 
-const float ProximityDistance = 7; //cm
+// initialize the library by providing LCD pin locations
+LiquidCrystal lcd(8,9,7,6,5,4);
+
+const float ProximityDistance = 9; //cm
+float Distance = 0;
+bool FrontDoorOpen = false;
+bool GarageDoorOpen = false;
+
+int timerTicks = 0;
+int TotalTicks = 0;
+int compareMatchReg = 15624;
 
 void setup() {
   Serial.begin(9600);
+  lcd.begin(16,2);
+  lcd.clear();
   DDRL=0b00000000;
 
   //Set PA0 as input
@@ -49,31 +43,63 @@ void setup() {
   ADCSRA = 0b10000100;
 
 
-  DDRB |= 0xFF; //PB7 is output other don't matter
+  DDRB |= 0xFF; //PB7 and PB5 is output other don't matter
   TCCR1A = 0b10001011; //set up timer 1C1 choose mode 7
   //TCCR1A = 0b00001011;
   TCCR1B = 0b00001100;// choose mode 7 (WGM3 = 0, WGM2 = 1, prescale of 1/256) CS2 = 1 CS1 = 0 CS0 = 0
   OCR1A = StartingAngleServo1; //Choose a value between 0 and 1023 this is for channle C only channle A is shown in the notes this code is how you set the cycles
   OCR1C = StartingAngleServo2;
 
-
 }
 
 void loop() {
-  //SetActivation pin for Password
-  if(PINL & ZeroPin){
-    //enter Password
-    if(PasswordCheck() == true){
-      //if password is correct open door
-      OpenDoor();
-      //Print to lcd
+
+  if(FrontDoorOpen == false) {
+    lcd.setCursor(0,0);
+    lcd.print("Press Pad to");
+    lcd.setCursor(0,1);
+    lcd.print("enter code");
+
+    if(PINL & ZeroPin) {
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("Enter Code");
+      lcd.setCursor(0,1);
+      delay(300);
+      if(PasswordCheck() == true) {
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Welcome Home");
+        lcd.setCursor(0,1);
+        lcd.print("Press 0 to close");
+        FrontDoorOpen = true;
+        OpenDoor();
+      }
+      else {
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Wrong");
+        delay(1000);
+      }
     }
-    else ;//else do not open door and print to lcd
   }
-  if(RangeFind() < ProximityDistance) {//if proximity is < x open the garage
-    OpenGarage();
-    //run a timer then close the door
+  else {
+    if(PINL & ZeroPin) {
+      FrontDoorOpen = false;
+      CloseDoor();
+    }
   }
 
 
+  if(GarageDoorOpen == false) {
+    if(RangeFind() < ProximityDistance) {
+      GarageDoorOpen = true;
+      OpenGarage();
+      delay(3000);
+      if(RangeFind() > float(12)){
+        CloseGarage();
+      }
+    }
+
+  }
 }
