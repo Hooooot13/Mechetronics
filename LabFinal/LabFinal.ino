@@ -15,10 +15,6 @@ float Distance = 0;
 bool FrontDoorOpen = false;
 bool GarageDoorOpen = false;
 
-int timerTicks = 0;
-int TotalTicks = 0;
-int compareMatchReg = 15624;
-
 void setup() {
   Serial.begin(9600);
   lcd.begin(16,2);
@@ -96,10 +92,10 @@ void loop() {
       GarageDoorOpen = true;
       OpenGarage();
       delay(3000);
-      if(RangeFind() > float(12)){
-        CloseGarage();
-      }
     }
-
+  }
+  if((GarageDoorOpen == true) && (RangeFind() > float(12))){
+    GarageDoorOpen = false;
+    CloseGarage();
   }
 }
