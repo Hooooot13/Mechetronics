@@ -91,10 +91,10 @@ void loop() {
     if(RangeFind() < ProximityDistance) {
       GarageDoorOpen = true;
       OpenGarage();
-      delay(3000);
     }
   }
-  if((GarageDoorOpen == true) && (RangeFind() > float(12))){
+  if((GarageDoorOpen == true) && (RangeFind() > float(15))){
+    delay(3000);
     GarageDoorOpen = false;
     CloseGarage();
   }
