@@ -21,3 +21,6 @@
 -Ground  -> Ground
 -Power   -> 5v Power
 -Signal  -> Pin:A0 (PF0)
+
+-Video Link:
+  https://photos.app.goo.gl/syxKz46GD1U5vX4C6
